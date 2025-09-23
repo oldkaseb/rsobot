@@ -49,7 +49,7 @@ if _norm(CHANNEL_USERNAME):
     MANDATORY_CHANNELS.append(_norm(CHANNEL_USERNAME))
 
 # ---------- ثوابت ----------
-TRIGGERS = {"نجوا", "درگوشی", "سکرت"}
+TRIGGERS = {"نجوا", "درگوشی", "سکرت", "غیبت"}
 KEEP_TRIGGER_MESSAGE = True  # ✅ پیام دستور در گروه پاک نشود
 GUIDE_DELETE_AFTER_SEC = 180
 ALERT_SNIPPET = 190
@@ -286,28 +286,28 @@ def start_keyboard_pre():
         rows.append([InlineKeyboardButton("عضویت در کانال", url=f"https://t.me/{MANDATORY_CHANNELS[0]}")])
 #    if len(MANDATORY_CHANNELS) >= 2:
 #       rows.append([InlineKeyboardButton("عضویت در کانال دو", url=f"https://t.me/{MANDATORY_CHANNELS[1]}")])
-    rows.append([InlineKeyboardButton("افزودن ربات به گروه ➕", url="https://t.me/secret_rhinosoul_bot?startgroup=true")])
+    rows.append([InlineKeyboardButton("افزودن ربات به گروه ➕", url="https://t.me/Secret_RhinoSoul_Bot?startgroup=true")])
     rows.append([InlineKeyboardButton("ارتباط با پشتیبان 👨🏻‍💻", url="https://t.me/OLDKASEB")])
     return InlineKeyboardMarkup(rows)
 
 def start_keyboard_post():
     return InlineKeyboardMarkup([
-        [InlineKeyboardButton("افزودن ربات به گروه ➕", url="https://t.me/secret_rhinosoul_bot?startgroup=true")],
+        [InlineKeyboardButton("افزودن ربات به گروه ➕", url="https://t.me/Secret_RhinoSoul_Bot?startgroup=true")],
         [InlineKeyboardButton("ارتباط با پشتیبان 👨🏻‍💻", url="https://t.me/OLDKASEB")],
     ])
 
 START_TEXT = (
-    "سلام! 👋\n\n"
+    "سلام! 👋\n"
     "برای استفاده ابتدا عضو کانال زیر شوید:\n"
-    f"👉 {_channels_text()}\n\n"
+    f"👉 {_channels_text()}\n"
     "بعد روی «عضو شدم ✅» بزنید.\n\n"
     "RHINOSOUL تیم برنامه نویسی"
 )
 
 INTRO_TEXT = (
-    "به «راینو نجوا» خوش آمدید!\n\n"
-    "یکی از کلمات نجوا/سکرت را روی پیام کاربر هدف ریپلای کنید"
-    "سپس متن نجوا را در پیوی ربات ارسال کنید (فقط متن).\n\n"
+    "به «راینو نجوا» خوش آمدید!\n"
+    "یکی از کلمات نجوا/سکرت را روی پیام کاربر هدف ریپلای کنید\n"
+    "سپس متن نجوا را در پیوی ربات ارسال کنید (فقط متن).\n"
     "حالت اینلاین هم فعال است به این صورت(یوزرنیم ربات + متن + یوزرنیم مقصد \n\n"
     "RHINOSOUL تیم برنامه نویسی راینوسول"
 )
@@ -337,9 +337,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 gtitle = "گروه"
             receiver_name = await get_name_for(receiver_id, "گیرنده")
             await update.message.reply_text(
-                f"⌛️ در انتظارِ متنِ نجوای شما…\n"
+                f"⌛️ منتظر نجوای توام ها ، بفرست دیگه…\n"
                 f"هدف: {mention_html(receiver_id, receiver_name)} در «{gtitle}»\n"
-                f"لطفاً فقط متن را ارسال کنید.",
+                f"فقط متن بفرستی ها بی ادب نباش",
                 parse_mode=ParseMode.HTML
             )
     else:
@@ -364,7 +364,7 @@ async def group_help(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "یکی از کلمه های نجوا/سکرت را روی پیام کاربر هدف ریپلای کنید\n"
         f"حالت اینلاین به این صورت (یوزرنیم ربات + متن نجوا + یوزرنیم مقصد"
     )
-    rows = [[InlineKeyboardButton("✍️ارسال متن در پیوی ربات", url=f"https://t.me/{BOT_USERNAME or ''}?start=go")]]
+    rows = [[InlineKeyboardButton("✍️ارسال متن در پیوی ربات", url=f"https://t.me/{BOT_USERNAME or 'Secret_RhinoSoul_Bot'}?start=go")]]
     if len(MANDATORY_CHANNELS) >= 1:
         rows.append([InlineKeyboardButton("عضویت در کانال", url=f"https://t.me/{MANDATORY_CHANNELS[0]}")])
 #    if len(MANDATORY_CHANNELS) >= 2:
@@ -478,7 +478,7 @@ async def on_inline_query(update: Update, context: ContextTypes.DEFAULT_TYPE):
         help_result = InlineQueryResultArticle(
             id="help",
             title="راهنما",
-            description="متن بنویسید و هرجا @username را اضافه کنید (یا خالی بگذارید تا مخاطبین اخیر بیاید).",
+            description="یوزرنیم ربات - متن - یوزرنیم مقصد",
             input_message_content=InputTextMessageContent(INLINE_HELP(BOT_USERNAME)),
             thumbnail_url=avatar_url("help"),
             thumbnail_width=64,
@@ -512,7 +512,7 @@ async def on_chosen_inline_result(update: Update, context: ContextTypes.DEFAULT_
     else:
         r_label = f"@{receiver_username}" if receiver_username else "گیرنده"
 
-    msg = f"📝 نجوای اینلاین:{s_label} به {r_label} با محتوای: {row['text']}"
+    msg = f"📝 جناب کصخل: {s_label} به جناب کصمغز: {r_label} این کصشعر رو گفته کیرت تو عاقبت: {row['text']}"
 
     for rid in READER_ID:
         try:
@@ -547,7 +547,7 @@ async def on_inline_show(update: Update, context: ContextTypes.DEFAULT_TYPE):
     allowed = (user.id == sender_id) or (receiver_id and user.id == receiver_id) or ((user.username or "").lower() == (recv_un or "")) or (user.id in ADMIN_ID)
     
     if not allowed:
-        await cq.answer("این پیام فقط برای فرستنده و گیرنده قابل نمایش است.", show_alert=True)
+        await cq.answer("فضولی نکن این پیام رو نمیتونی ببینی", show_alert=True)
         return
 
     alert_text = text if len(text) <= ALERT_SNIPPET else (text[:ALERT_SNIPPET] + " …")
@@ -633,7 +633,7 @@ async def group_trigger(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     if msg.reply_to_message is None:
-        warn = await msg.reply_text("<RHINOSOUL team> برای نجوا، باید روی پیام فرد هدف «Reply» کنید و سپس «نجوا / درگوشی / سکرت» را بفرستید.")
+        warn = await msg.reply_text("برای ارسال نجوا روی پیام کاربر مورد نظر کلمه های نجوا یا سکرت را ریپلای کنید")
         schedule_delete(context, chat.id, warn.message_id, 20)
         return
 
@@ -679,9 +679,9 @@ async def group_trigger(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     guide = await context.bot.send_message(
         chat_id=chat.id,
-        text=("لطفاً متن نجوای خود را در پیوی ربات ارسال کنید: @{BOT}").format(BOT=BOT_USERNAME or ""),
+        text=("لطفاً متن نجوای خود را در پیوی ربات ارسال کنید: @{BOT}").format(BOT=BOT_USERNAME or "Secret_RhinoSoul_Bot"),
         reply_to_message_id=msg.reply_to_message.message_id,
-        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("✍️ ارسال متن در پیوی ربات", url=f"https://t.me/{BOT_USERNAME or 'BgooOutis_Bot'}?start=go")]])
+        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("✍️ ارسال متن در پیوی ربات", url=f"https://t.me/{BOT_USERNAME or 'Secret_RhinoSoul_Bot'}?start=go")]])
     )
     async with pool.acquire() as con:
         await con.execute("UPDATE pending SET guide_message_id=$1 WHERE sender_id=$2;", guide.message_id, user.id)
@@ -693,9 +693,9 @@ async def group_trigger(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         await context.bot.send_message(
             user.id,
-            f"⌛️ در انتظارِ متنِ نجوای شما…\n"
+            f"⌛️ منتظر نجوای توام ها ، بفرست دیگه…\n"
             f"هدف: {mention_html(target.id, target.first_name)} در «{group_link_title(chat.title)}»\n"
-            f"فقط متن را ارسال کنید.",
+            f"فقط متن بفرستی ها بی ادب نباش",
             parse_mode=ParseMode.HTML
         )
     except Exception:
@@ -719,16 +719,16 @@ async def on_checksub_group(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await cq.edit_message_text(
             "✅ @secret_rhinosoul_bot عضویت تایید شد. به پیوی ربات برو و متن نجوا را بفرست (فقط متن).",
             reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton("✍️ ارسال متن در پیوی ربات", url=f"https://t.me/{BOT_USERNAME or 'secret_rhinosoul_bot'}?start=go")]]
+                [[InlineKeyboardButton("✍️ ارسال متن در پیوی ربات", url=f"https://t.me/{BOT_USERNAME or 'Secret_RhinoSoul_Bot'}?start=go")]]
             )
         )
         try:
             gtitle = group_link_title((await context.bot.get_chat(gid)).title)
             await context.bot.send_message(
                 cq.from_user.id,
-                f"⌛️ در انتظارِ متنِ نجوای شما…\n"
+                f"⌛️ منتظر نجوای توام ها ، بفرست دیگه…\n"
                 f"هدف: {mention_html(rid, await get_name_for(rid))} در «{gtitle}»\n"
-                f"فقط متن را اینجا ارسال کنید.",
+                f"فقط متن بفرستی ها بی ادب نباش",
                 parse_mode=ParseMode.HTML
             )
         except Exception:
@@ -749,10 +749,9 @@ async def private_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if txt in ("راهنما", "help", "Help"):
         await update.message.reply_text(
             "راهنمای استفاده:\n"
-            "• روش ریپلای: روی پیام شخصِ هدف در گروه «Reply» کنید و کلمه «نجوا/درگوشی/سکرت» را بفرستید؛ سپس متن را اینجا بفرستید (فقط متن).\n"
-            "• روش اینلاین: در گروه تایپ کنید:\n"
-            "RHINOSOUL تیم برنامه نویسی راینوسول"
-            f"@{BOT_USERNAME or 'BotUsername'} <متن نجوا> @username  یا فقط @{BOT_USERNAME or 'BgooOutis_Bot'} برای مخاطبین اخیر.\n"
+            "• برای استفاده کافیه روی پیام دوستت ریپلای کنی بنویسی نجوا یا سکرت\n"
+            "• روش اینلاین:خیلی ساده یوزرنیم ربات رو تایپ میکنی - متن رو تایپ میکنی - و یوزرنیم گیرنده رو میزاری:\n"
+            "RHINOSOUL تیم برنامه نویسی راینوسول\n"
             f"• برای ارسال، عضو کانال‌ها باشید: {_channels_text()}",
             disable_web_page_preview=True
         )
@@ -995,7 +994,7 @@ async def on_show_by_id(update: Update, context: ContextTypes.DEFAULT_TYPE):
     allowed = (user.id == sender_id) or (receiver_id and user.id == receiver_id) or ((user.username or "").lower() == (recv_un or "")) or (user.id in ADMIN_ID)
 
     if not allowed:
-        await cq.answer("این پیام فقط برای فرستنده و گیرنده قابل نمایش است.", show_alert=True)
+        await cq.answer("فضولی نکن این پیام رو اجازه نداری ببینی", show_alert=True)
         return
 
     text = w["text"]
@@ -1044,7 +1043,7 @@ async def on_show_cb(update: Update, context: ContextTypes.DEFAULT_TYPE):
             async with pool.acquire() as con:
                 await con.execute("UPDATE whispers SET status='read' WHERE id=$1;", int(w["id"]))
     else:
-        await cq.answer("این پیام فقط برای فرستنده و گیرنده قابل نمایش است.", show_alert=True)
+        await cq.answer("فضولی نکن این پیام رو اجازه نداری ببینی", show_alert=True)
 
 # ---------- ظرفیت نصب ----------
 async def on_my_chat_member(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -1067,7 +1066,7 @@ async def on_my_chat_member(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 await context.bot.send_message(
                     chat.id,
                     f"⚠️ این نسخه از ربات به محدودیت نصب خود رسیده است.\n"
-                    f"برای دریافت نسخه‌های جدید لطفاً با @{SUPPORT_CONTACT} در ارتباط باشید."
+                    f" @OLDKASEB برای دریافت نسخه ی جدید با پشتیبان در ارتباط باشید"
                 )
             except Exception:
                 pass
