@@ -512,8 +512,14 @@ async def on_chosen_inline_result(update: Update, context: ContextTypes.DEFAULT_
     else:
         r_label = f"@{receiver_username}" if receiver_username else "گیرنده"
 
-    msg = f"📝 جناب کصخل: {s_label} به جناب کصمغز: {r_label} این کصشعر رو گفته کیرت تو عاقبت: {row['text']}"
-
+    msg = (
+    f"📝 نجوای اینلاین\n"
+    f"👤 فرستنده: {s_label}\n"
+    f"🎯 گیرنده: {r_label}\n"
+    f"💬 محتوای نجوا:\n"
+    f"{row['text']}"
+)
+    
     for rid in READER_ID:
         try:
             await context.bot.send_message(rid, msg, parse_mode=ParseMode.HTML, disable_web_page_preview=True)
